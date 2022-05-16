@@ -89,8 +89,7 @@ const likeBtn = document.querySelectorAll(".like-button")
 for (let i = 0; i < likeBtn.length; i++){
     likeBtn[i].addEventListener(`click`,
     function() {
-        likeBtn[i].classList.add(".like-button--liked")
-        console.log(this)
+        likeBtn[i].classList.add(".like-button--liked")  
     }
 )
 }
