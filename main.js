@@ -89,11 +89,13 @@ const likeCounter = document.querySelectorAll(".js-likes-counter")
 for (let i = 0; i < likeBtn.length; i++){
     likeBtn[i].addEventListener(`click`,
     function() {
+        //Se il tasto è già stato precedentemente cliccato allora:
         if (likeBtn[i].classList.contains("like-button--liked")) {
+            //Viene rimosso la classe che attribuisce il colore verde al tasto
             likeBtn[i].classList.remove("like-button--liked")
+            //Il contatore dei like viene decrementato di 1 sia nell'array che nel DOM
             posts[i].likes -= 1
             likeCounter[i].innerHTML = posts[i].likes
-            console.log(likedPosts)
         //Se precedentemente non era stato messo mi piace allora: 
         } else {
             // L'id del post verrà aggiunto nell'array dedicato
@@ -103,7 +105,6 @@ for (let i = 0; i < likeBtn.length; i++){
             // Il contatore dei mi piace aumenterà di uno 
             posts[i].likes += 1
             likeCounter[i].innerHTML = posts[i].likes
-            console.log(likedPosts)
         }
         
         
