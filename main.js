@@ -57,7 +57,6 @@ const posts = [
 ];
 
 
-
 const container = document.querySelector("#container")
 //Con il ciclo si prende ogni dato di ogni oggetto inserendolo nel tag/attributo interessato
 for (let i = 0; i < posts.length; i++) {
@@ -77,19 +76,37 @@ for (let i = 0; i < posts.length; i++) {
     tplPost.querySelector(".post__text").innerHTML = posts[i].content
     tplPost.querySelector(".post__image img").src = posts[i].media
     tplPost.querySelector(".likes__counter #like-counter-1").innerHTML = posts[i].likes
-    console.log(tplPost)
     container.append(tplPost)
 }
+
 
 //Creo un'array per inserire gli oggetti piaciuti
 const likedPosts = [];
 //Creo una variabile per l'elemento che verrà cliccato per il "mi piace"
 const likeBtn = document.querySelectorAll(".like-button")
+const likeCounter = document.querySelectorAll(".js-likes-counter")
 //Per ogni elemento "mi piace" presente vado ad aggiungere la funzione che rimanga in ascolto 
 for (let i = 0; i < likeBtn.length; i++){
     likeBtn[i].addEventListener(`click`,
     function() {
-        likeBtn[i].classList.add(".like-button--liked")  
+        if (likeBtn[i].classList.contains("like-button--liked")) {
+            likeBtn[i].classList.remove("like-button--liked")
+            posts[i].likes -= 1
+            likeCounter[i].innerHTML = posts[i].likes
+            console.log(likedPosts)
+        //Se precedentemente non era stato messo mi piace allora: 
+        } else {
+            // L'id del post verrà aggiunto nell'array dedicato
+            likedPosts.push(posts[i].id)
+            // Il tasto diventerà verde
+            likeBtn[i].classList.add("like-button--liked")
+            // Il contatore dei mi piace aumenterà di uno 
+            posts[i].likes += 1
+            likeCounter[i].innerHTML = posts[i].likes
+            console.log(likedPosts)
+        }
+        
+        
     }
 )
 }
