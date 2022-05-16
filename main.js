@@ -55,3 +55,21 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+
+
+const container = document.querySelector("#container")
+//Con il ciclo si prende ogni dato di ogni oggetto inserendolo nel tag/attributo interessato
+for (let i = 0; i < posts.length; i++) {
+    //Creo la variabile che prende il marckup HTML all'interno del tag template
+    const tplPost = document.querySelector("#post_template").content.cloneNode(true)
+    tplPost.querySelector(".post-meta__icon img").src = posts[i].author.image
+    tplPost.querySelector(".post-meta__icon img").alt = posts[i].author.name
+    tplPost.querySelector(".post-meta__data .post-meta__author").innerHTML = posts[i].author.name
+    tplPost.querySelector(".post-meta__data .post-meta__time").innerHTML = posts[i].created
+    tplPost.querySelector(".post__text").innerHTML = posts[i].content
+    tplPost.querySelector(".post__image img").src = posts[i].media
+    tplPost.querySelector(".likes__counter #like-counter-1").innerHTML = posts[i].likes
+    console.log(tplPost)
+    container.append(tplPost)
+}
