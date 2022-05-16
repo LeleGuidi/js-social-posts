@@ -8,7 +8,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?image=15"
         },
         "likes": 80,
-        "created": "2021-06-25"
+        "created": "2021-06-25",
     },
     {
         "id": 2,
@@ -63,8 +63,15 @@ const container = document.querySelector("#container")
 for (let i = 0; i < posts.length; i++) {
     //Creo la variabile che prende il marckup HTML all'interno del tag template
     const tplPost = document.querySelector("#post_template").content.cloneNode(true)
-    tplPost.querySelector(".post-meta__icon img").src = posts[i].author.image
-    tplPost.querySelector(".post-meta__icon img").alt = posts[i].author.name
+    if (posts[i].author.image != null) {
+        tplPost.querySelector(".post-meta__icon img").src = posts[i].author.image
+        tplPost.querySelector(".post-meta__icon img").alt = posts[i].author.name
+    } else {
+        var image = posts[i].author.name
+        var matches = image.match(/\b(\w)/g);
+        var icon = matches.join('');
+        tplPost.querySelector(".post-meta__icon img").alt = icon
+    }
     tplPost.querySelector(".post-meta__data .post-meta__author").innerHTML = posts[i].author.name
     tplPost.querySelector(".post-meta__data .post-meta__time").innerHTML = posts[i].created
     tplPost.querySelector(".post__text").innerHTML = posts[i].content
@@ -73,3 +80,18 @@ for (let i = 0; i < posts.length; i++) {
     console.log(tplPost)
     container.append(tplPost)
 }
+
+//Creo un'array per inserire gli oggetti piaciuti
+const likedPosts = [];
+//Creo una variabile per l'elemento che verrà cliccato per il "mi piace"
+const likeBtn = document.querySelectorAll(".like-button")
+//Per ogni elemento "mi piace" presente vado ad aggiungere la funzione che rimanga in ascolto 
+for (let i = 0; i < likeBtn.length; i++){
+    likeBtn[i].addEventListener(`click`,
+    function() {
+        likeBtn[i].classList.add(".like-button--liked")
+        console.log(this)
+    }
+)
+}
+
